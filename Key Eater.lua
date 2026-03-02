@@ -97,20 +97,19 @@ local function Serverhop()
   local Servers_Data = Http_Service:JSONDecode(game:HttpGetAsync(Servers_Url)).data
   
   for _, Servers_Table in ipairs(Servers_Data) do
-    
     if type(Servers_Table) == "table" and
     Servers_Table.maxPlayers > Servers_Table.playing and
     Servers_Table.id ~= Server_ID then
       table.insert(Servers_IDS, Servers_Table.id)
 		  end
-	  end
+	end
 	  
-	  if #Servers_IDS > 0 then
-	    Teleport_Service:TeleportToPlaceInstance(
-	      Place_ID,
-	      Servers_IDS[ math.random(1, #Servers_IDS) ]
-	      )
-	  end
+	if #Servers_IDS > 0 then
+	  Teleport_Service:TeleportToPlaceInstance(
+	    Place_ID,
+	    Servers_IDS[ math.random(1, #Servers_IDS) ]
+	    )
+  end
 end
 
 local function Grab_Tool(Tool_Name: string)
@@ -148,6 +147,8 @@ end
 
 local function Store_Item(Item: Instance)
   local Items_UI = PlayerGui.BankNEW.Right.ImageLabel.ItemSlots.Slots
+  
+  Humanoid:UnequipTools(Item)
   
   for _, Slots in (Items_UI:GetChildren()) do
     if Slots:IsA("Frame") then
@@ -219,9 +220,17 @@ end)
 task.defer(function()
   while task.wait(5) do
     if Store_Keys_State then
+      
       for _, Items in ipairs(Backpack:GetChildren()) do
         if table.find(Store_List, Items.Name) then
           Store_Item(Items)
+        end
+      end
+      
+      for _, Equipped_Item in ipairs(Character:GetChildren()) do
+        if Equipped_Item:IsA("Tool") and
+        table.find(Store_List, Equipped_Item.Name) then
+          Store_Item(Equipped_Item)
         end
       end
       
