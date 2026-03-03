@@ -20,31 +20,6 @@ local Tabs = {
   Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
-SaveManager:SetIgnoreIndexes({})
-
-SaveManager:SetLibrary(Fluent)
-InterfaceManager:SetLibrary(Fluent)
-
-SaveManager:IgnoreThemeSettings()
-
-InterfaceManager:SetFolder("FluentScriptHub")
-SaveManager:SetFolder("FluentScriptHub/specific-game")
-
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-SaveManager:BuildConfigSection(Tabs.Settings)
-
-Window:SelectTab(1)
-
-Fluent_Toggle:Init()
-
-Fluent:Notify({
-  Title = "Fluent",
-  Content = "The script has been loaded.",
-  Duration = 8
-})
-
-SaveManager:LoadAutoloadConfig()
-
 -- [[ VARIABLES ]]
 
 local Place_ID = game.PlaceId
@@ -269,3 +244,30 @@ task.defer(function()
     end
   end
 end)
+
+-- [[ Data Manager ]]
+
+SaveManager:SetIgnoreIndexes({})
+
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+
+SaveManager:IgnoreThemeSettings()
+
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/specific-game")
+
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+Window:SelectTab(1)
+
+Fluent_Toggle:Init()
+
+Fluent:Notify({
+  Title = "Fluent",
+  Content = "The script has been loaded.",
+  Duration = 8
+})
+
+SaveManager:LoadAutoloadConfig()
