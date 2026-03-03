@@ -101,7 +101,7 @@ local function Serverhop()
     Servers_Table.maxPlayers > Servers_Table.playing and
     Servers_Table.id ~= Server_ID then
       table.insert(Servers_IDS, Servers_Table.id)
-		  end
+	  end
 	end
 	  
 	if #Servers_IDS > 0 then
